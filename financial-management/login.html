@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistem Manajemen Keuangan</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <!-- Logo dan Judul -->
+            <div>
+                <div class="flex justify-center">
+                    <div class="flex items-center">
+                        <i class="fas fa-chart-line text-blue-600 text-4xl mr-2"></i>
+                        <span class="text-2xl font-bold text-gray-900">FinReport</span>
+                    </div>
+                </div>
+                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                    Masuk ke Akun Anda
+                </h2>
+                <p class="mt-2 text-center text-sm text-gray-600">
+                    Atau
+                    <a href="#" class="font-medium text-blue-600 hover:text-blue-500">
+                        daftar untuk akun baru
+                    </a>
+                </p>
+            </div>
+
+            <!-- Form Login -->
+            <form class="mt-8 space-y-6" id="loginForm">
+                <input type="hidden" name="remember" value="true">
+                <div class="rounded-md shadow-sm -space-y-px">
+                    <div>
+                        <label for="email" class="sr-only">Alamat Email</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope text-gray-400"></i>
+                            </div>
+                            <input id="email" name="email" type="email" required 
+                                class="appearance-none rounded-none relative block w-full px-3 py-3 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                                placeholder="Alamat email">
+                        </div>
+                        <div class="hidden text-red-500 text-sm mt-1" id="emailError"></div>
+                    </div>
+                    <div>
+                        <label for="password" class="sr-only">Kata Sandi</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                            <input id="password" name="password" type="password" required 
+                                class="appearance-none rounded-none relative block w-full px-3 py-3 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                                placeholder="Kata sandi">
+                        </div>
+                        <div class="hidden text-red-500 text-sm mt-1" id="passwordError"></div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox" 
+                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-900">
+                            Ingat saya
+                        </label>
+                    </div>
+
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-blue-600 hover:text-blue-500">
+                            Lupa kata sandi?
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" 
+                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                            <i class="fas fa-sign-in-alt text-blue-500 group-hover:text-blue-400"></i>
+                        </span>
+                        Masuk
+                    </button>
+                </div>
+            </form>
+
+            <!-- Tombol Kembali -->
+            <div class="text-center">
+                <a href="index.html" class="text-sm text-gray-600 hover:text-blue-500">
+                    <i class="fas fa-arrow-left mr-2"></i>Kembali ke Beranda
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript untuk validasi form -->
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset error messages
+            document.getElementById('emailError').classList.add('hidden');
+            document.getElementById('passwordError').classList.add('hidden');
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            let isValid = true;
+
+            // Validasi email
+            if (!email) {
+                document.getElementById('emailError').textContent = 'Email harus diisi';
+                document.getElementById('emailError').classList.remove('hidden');
+                isValid = false;
+            } else if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                document.getElementById('emailError').textContent = 'Format email tidak valid';
+                document.getElementById('emailError').classList.remove('hidden');
+                isValid = false;
+            }
+
+            // Validasi password
+            if (!password) {
+                document.getElementById('passwordError').textContent = 'Kata sandi harus diisi';
+                document.getElementById('passwordError').classList.remove('hidden');
+                isValid = false;
+            } else if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Kata sandi minimal 6 karakter';
+                document.getElementById('passwordError').classList.remove('hidden');
+                isValid = false;
+            }
+
+            // Jika valid, redirect ke dashboard (untuk demo)
+            if (isValid) {
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>
